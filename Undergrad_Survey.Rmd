@@ -1,0 +1,177 @@
+---
+title: "Astronomy Undergraudate Survey 2023"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(readxl)
+```
+
+
+```{r}
+data = read_xlsx("Astronomy Undergraduate Survey 2023 (Responses).xlsx")
+orig_names = colnames(data)
+data = data %>% rename(
+  #Page 1
+  Gender = "Which gender do you identify as?",
+  First_gen = "Are you a first-generation college student? (The formal definition of a first-generation college student is a student whose parents did not complete a four-year college degree)",
+  Disibility = "Do you identify as having a disability?",
+  Racial_Ethic_Minority = "Do you identify as a member of a racial or ethnic minority group?",
+  Additional_Majors = "List additional majors or minors you are pursuing:",
+  Feedback1 = "Do you have any additional comments for this section? Any additional information or feedback is appreciated....8",
+  
+  
+  
+  
+  #Page 2
+  I_Belong = "Please rate how much you agree with the following statements about how you are treated in the Astronomy Department: [I belong in the Astronomy Department]",
+  Members_Respect_Me = 'Please rate how much you agree with the following statements about how you are treated in the Astronomy Department: [Members in the Astronomy Department respect me]',
+  Ideas_Valued = "Please rate how much you agree with the following statements about how you are treated in the Astronomy Department: [My ideas are valued by members of the Astronomy Department]",
+  Achievements_Recognized = "Please rate how much you agree with the following statements about how you are treated in the Astronomy Department: [People in the Astronomy Department recognize my achievements ]",
+  Feel_Welcome = "Please rate how much you agree with the following statements about how you are treated in the Astronomy Department: [I feel welcome to Astronomy Department events]", 
+  Feel_Alienated = "Please rate how much you agree with the following statements about how you are treated in the Astronomy Department: [I feel alienated from the Astronomy Department]", 
+  Interact_Faculty_Staff = "How often do you interact with the following groups outside of class? [Astronomy Faculty / Staff (professors, scientists, administration, etc)]", 
+  Interact_Grad_Students = "How often do you interact with the following groups outside of class? [Astronomy Graduate students]",
+  Interact_Academic_Advisors = "How often do you interact with the following groups outside of class? [Academic Advisors]",
+  Interact_Other_Undergrads = "How often do you interact with the following groups outside of class? [Other Undergraduates]", 
+  Interact_Astro_Club = "How often do you interact with the following groups outside of class? [Astronomy Club]", 
+  Outreach = "How do you find out about Astronomy events or opportunities?",
+  Outreach_Responses = "Out of the options from the last question, do you have any that you prefer? Feel free to elaborate.",
+  Online_Community = "Please rate how you agree with the following statements about proposed ideas in the Astronomy Department [I would benefit from and join a moderated online community for Astronomy Undergraduates (Discord, Slack, Google Group, etc)]",
+  Mentorship_Interest = "Please rate how you agree with the following statements about proposed ideas in the Astronomy Department [I am interested in a program for mentoring recently declared undergraduate Astronomy-Physics students]",
+  Town_Hall = "Please rate how you agree with the following statements about proposed ideas in the Astronomy Department [I would participate in an Astronomy Undergraduate Town Hall to discuss improvements within the department with faculty and advisors]",
+  Non_Created_Events = "Are there any Astronomy events or opportunities that you would like to attend that have not been created?",
+  Cannot_Attend_Events = "Has there been any Astronomy events or opportunities that you have wanted to participate in, but have not been able to? Feel free to elaborate on the reasons why (schedule conflict, social climate issue, etc.).",
+  Feedback2 = "Do you have any additional comments for this section? Any additional information or feedback is appreciated....27",
+  
+  
+  
+  
+  
+  
+  
+  #Page 3
+  Astro_Credit_Appropriate = "Please rate how you feel about the following statements related to the Astronomy-Physics academic experience. 
+
+For your reference, the requirements for the major can be found here: https://guide.wisc.edu/undergraduate/letters-science/astronomy/astronomy-physics-bs/#requirementstext
+
+Please be aware of the scroll bar at the bottom of this question. Scroll to see all answer options. [The number of Astronomy credits/classes is appropriate for the major]",
+  Physics_Credit_Appropriate = "Please rate how you feel about the following statements related to the Astronomy-Physics academic experience. 
+
+For your reference, the requirements for the major can be found here: https://guide.wisc.edu/undergraduate/letters-science/astronomy/astronomy-physics-bs/#requirementstext
+
+Please be aware of the scroll bar at the bottom of this question. Scroll to see all answer options. [The number of Physics credits/classes is appropriate for the major]",
+  Other_Credit_Appropriate = "Please rate how you feel about the following statements related to the Astronomy-Physics academic experience. 
+
+For your reference, the requirements for the major can be found here: https://guide.wisc.edu/undergraduate/letters-science/astronomy/astronomy-physics-bs/#requirementstext
+
+Please be aware of the scroll bar at the bottom of this question. Scroll to see all answer options. [The number of other credits/classes (math, computer science, etc.) is appropriate for the major]",
+  Studies_Going_Well = "Please rate how you feel about the following statements related to the Astronomy-Physics academic experience. 
+
+For your reference, the requirements for the major can be found here: https://guide.wisc.edu/undergraduate/letters-science/astronomy/astronomy-physics-bs/#requirementstext
+
+Please be aware of the scroll bar at the bottom of this question. Scroll to see all answer options. [I am doing well in my studies]",
+  Know_Where_Help = "Please rate how you feel about the following statements related to the Astronomy-Physics academic experience. 
+
+For your reference, the requirements for the major can be found here: https://guide.wisc.edu/undergraduate/letters-science/astronomy/astronomy-physics-bs/#requirementstext
+
+Please be aware of the scroll bar at the bottom of this question. Scroll to see all answer options. [I know where to get help in my classes if/when I need it]",
+  Satisfied_Study_Spaces_Num = "Please rate how you feel about the following statements related to the Astronomy-Physics academic experience. 
+
+For your reference, the requirements for the major can be found here: https://guide.wisc.edu/undergraduate/letters-science/astronomy/astronomy-physics-bs/#requirementstext
+
+Please be aware of the scroll bar at the bottom of this question. Scroll to see all answer options. [I am satisfied with the number of study spaces for Astronomy students]",
+  Satisfied_Study_Spaces_Qual = "Please rate how you feel about the following statements related to the Astronomy-Physics academic experience. 
+
+For your reference, the requirements for the major can be found here: https://guide.wisc.edu/undergraduate/letters-science/astronomy/astronomy-physics-bs/#requirementstext
+
+Please be aware of the scroll bar at the bottom of this question. Scroll to see all answer options. [I am satisfied with the quality of the study spaces for Astronomy students]",
+  Utilized_Handbook = "Please rate how you feel about the following statements related to the Astronomy-Physics academic experience. 
+
+For your reference, the requirements for the major can be found here: https://guide.wisc.edu/undergraduate/letters-science/astronomy/astronomy-physics-bs/#requirementstext
+
+Please be aware of the scroll bar at the bottom of this question. Scroll to see all answer options. [I have utilized the Astronomy-Physics Undergrad Handbook (such as the resource at https://docs.google.com/document/d/1JZuQKvu5Dsk0FwS9rAd9vmvEWidWGXTM/)]",
+  Classes_Removed = "Are there any classes or requirements you would remove from the major?",
+  Classes_Added = "Are there any classes or requirements you would add to the major?",
+  AstroPhysics_Met_Expectations = "Has the Astronomy-Physics academic program met your expectations? Feel free to elaborate.",
+    Feedback3 = "Do you have any additional comments for this section? Any additional information or feedback is appreciated....39",
+  
+
+
+
+
+
+  #Page 4
+  Pursuing_Graduate = "Please rate how much you agree with the following statements about your career and plans beyond university. 
+
+Note: For Questions 2 and 5, select NA if you do not plan on applying to the programs in the previous question. [I am planning on pursuing a Graduate degree in Astronomy or Physics]",
+  Prepared_For_Grad_School = "Please rate how much you agree with the following statements about your career and plans beyond university. 
+
+Note: For Questions 2 and 5, select NA if you do not plan on applying to the programs in the previous question. [...I am prepared and have the resources for Graduate school applications ]",
+  AstroPhysics_Career = "Please rate how much you agree with the following statements about your career and plans beyond university. 
+
+Note: For Questions 2 and 5, select NA if you do not plan on applying to the programs in the previous question. [I am planning on pursuing a career in Astrophysics]",
+  Plan_Pursue_Research = "Please rate how much you agree with the following statements about your career and plans beyond university. 
+
+Note: For Questions 2 and 5, select NA if you do not plan on applying to the programs in the previous question. [I am planning on pursuing an REU, internship, or other research program outside of UW-Madison]",
+  Prepared_For_Applications = "Please rate how much you agree with the following statements about your career and plans beyond university. 
+
+Note: For Questions 2 and 5, select NA if you do not plan on applying to the programs in the previous question. [...I am prepared and have the resources for these applications]",
+  AstroPhysics_Degree_Prepares_Me = "Please rate how much you agree with the following statements about your career and plans beyond university. 
+
+Note: For Questions 2 and 5, select NA if you do not plan on applying to the programs in the previous question. [My Astronomy-Physics degree is preparing me to succeed in my plans after university]",
+  Worry_About_College_Living = "Please rate how much you agree with the following statements about your career and plans beyond university. 
+
+Note: For Questions 2 and 5, select NA if you do not plan on applying to the programs in the previous question. [I worry often about paying for college or other living expenses]",
+  Planned_Career_Path = "What is your planned career path? Feel free to elaborate on what your plans after university are.",
+  Involved_In_Research = "Are you involved/have you been involved in Astronomy or Physics research at UW-Madison?",
+  URS_Participation = "Have you participated in the Undergraduate Research Scholars (URS) program for Astronomy research?",
+  Major_Barriers = "Do you feel like there are any major barriers to getting into or completing the Astronomy opportunities (such as research, volunteer work, etc.) you wish to participate in? These barriers could be curricular or extra-curricular.",
+    Feedback4 = "Do you have any additional comments for this section? Any additional information or feedback is appreciated....51",
+
+
+
+
+
+
+
+  #Page 5
+  Hours_Research = "About how many hours per week do you spend working on research?",
+  How_Long_Current_Research = "How long have you been working on your current research?",
+  Research_Straightforward = "Please rate the following statements about Astronomy/Physics Research at UW-Madison [It was straightforward to find a project and get started with research]",
+  Enjoy_Mentor_Team = "Please rate the following statements about Astronomy/Physics Research at UW-Madison [I enjoy working with my research mentor and/or team]",
+  Help_Available = "Please rate the following statements about Astronomy/Physics Research at UW-Madison [Help is available when I have a problem with my research]",
+  Adequate_Guidance = "Please rate the following statements about Astronomy/Physics Research at UW-Madison [I receive adequate guidance from my mentor]",
+  Funding_Strain = "Please rate the following statements about Astronomy/Physics Research at UW-Madison [Funding has placed a strain on my ability to conduct research]",
+  Meaningful_Research = "Please rate the following statements about Astronomy/Physics Research at UW-Madison [My research feels meaningful to developing my career and expanding my astronomical knowledge]",
+    Feedback5 = "Do you have any additional comments for this section? Any additional information or feedback is appreciated....60"  
+  )
+
+new_names = colnames(data)
+name_changes = tibble("Original Names" = orig_names, 
+                      "New Names" = new_names)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
