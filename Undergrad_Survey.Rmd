@@ -14,6 +14,8 @@ data = read_xlsx("Astronomy Undergraduate Survey 2023 (Responses).xlsx")
 orig_names = colnames(data)
 data = data %>% rename(
   #Page 1
+  Timestamp = "Timestamp",
+  Year = "Current Year",
   Gender = "Which gender do you identify as?",
   First_gen = "Are you a first-generation college student? (The formal definition of a first-generation college student is a student whose parents did not complete a four-year college degree)",
   Disibility = "Do you identify as having a disability?",
@@ -149,6 +151,8 @@ Note: For Questions 2 and 5, select NA if you do not plan on applying to the pro
   )
 
 new_names = colnames(data)
+
+#Easy check to see what names were changed to
 name_changes = tibble("Original Names" = orig_names, 
                       "New Names" = new_names)
 ```
