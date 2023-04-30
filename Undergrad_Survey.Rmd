@@ -155,6 +155,12 @@ new_names = colnames(data)
 #Easy check to see what names were changed to
 name_changes = tibble("Original Names" = orig_names, 
                       "New Names" = new_names)
+
+#tally other majors
+
+#attributes() attr()
+
+#tally other forms of communication
 ```
 
 
