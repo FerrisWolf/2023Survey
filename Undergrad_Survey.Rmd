@@ -155,15 +155,54 @@ new_names = colnames(data)
 #Easy check to see what names were changed to
 name_changes = tibble("Original Names" = orig_names, 
                       "New Names" = new_names)
-
-#tally other majors
-
-#attributes() attr()
-
-#tally other forms of communication
 ```
 
+```{r}
+#Makes the additional majors column much easeir to work with
+data$Additional_Majors = list(
+  c("Classical Studies"),
+  c("Physics", "Math"),
+  c("Physics"),
+  c("Data Science"),
+  c("Data Science"),
+  c("Philosophy", "Math"),
+  c("Atmospheric Science", "Data Science"),
+  c("Physics", "History", "Math", "German"),
+  c("Math"),
+  c("Math", "Economics"),
+  c("NA"),
+  c("Physics"),
+  c("Physics", "Computer Science"),
+  c("Computer Science", "Game Design"),
+  c("Physics", "Math", "Environmental Studies"),
+  c("Computer Science"),
+  c("Physics"),
+  c("Physics", "Science Communication"),
+  c("Data Science", "Computer Science"),
+  c("NA"),
+  c("Data Science", "Math"),
+  c("Physics", "Math", "Biological Sciences"),
+  c("Computer Science"),
+  c("Physics", "Environmental Studies"),
+  c("Physics"),
+  c("NA"),
+  c("Physics"),
+  c("Physics", "Math"),
+  c("Physics", "Math"),
+  c("Math"),
+  c("Computer Science"),
+  c("Political Science"),
+  c("Physics", "Math")
+)
+```
 
+```{r}
+#Tallies up majors and plots them
+y = unlist(data$Additional_Majors)
+my_table = table(y)
+my_table = my_table[order(-my_table)]
+barplot(my_table, las = 3)
+```
 
 
 
